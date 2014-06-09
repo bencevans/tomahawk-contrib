@@ -18,6 +18,9 @@
 # !!NOTE: PYTHONPATH to this project basedir need to be set,
 #       Eg. export PYTHONPATH=/path/to/src/
 
+import json
+import urllib2
+
 from scrapers import settings
 from scrapers.chart import Chart
 from sources.utils import cache as chartCache
@@ -30,7 +33,8 @@ class Rcharts(Chart):
     description = "Reddit generated music charts"
     have_extra = False
     baseUrl = "http://rcharts.bensbit.co.uk"
-    sections = ["Music", "listentothis", "dubstep", "trance", "treemusic", "IndieFolk"]
+    sections = json.load(urllib2.urlopen('http://rcharts.bensbit.co.uk/subreddits.json'))
+
     apiKey = "3f578b3d250b47adb24e193ba933a9b80f31d3f9"
 
     def init(self):
